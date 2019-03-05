@@ -1,14 +1,14 @@
-void settings() {
+void settings2() {
   size(500, 500, P3D);
 }
 
-void setup() {
+void setup2() {
   noStroke();
 }
 
 float depth = 2000;
 
-void draw() {
+void draw2() {
   camera(width/2, height/2, depth, 250, 250, 0, 0, 1, 0);
   directionalLight(50, 100, 125, 0, -1, 0);
   ambientLight(100, 102, 102);
@@ -30,7 +30,7 @@ void draw() {
    }
 }
 
-void keyPressed() {
+void keyPressed2() {
   if (key == CODED) {
     if (keyCode == UP) {
       depth -= 50;
@@ -40,37 +40,37 @@ void keyPressed() {
   }
 }
 
-class My2DPoint {
+class My2DPoint2 {
   float x;
   float y;
-  My2DPoint(float x, float y) {
+  My2DPoint2(float x, float y) {
     this.x = x;
     this.y = y;
   }
 }
 
-class My3DPoint {
+class My3DPoint2 {
   float x;
   float y;
   float z;
-  My3DPoint(float x, float y, float z) {
+  My3DPoint2(float x, float y, float z) {
     this.x = x;
     this.y = y;
     this.z = z;
   }
 }
 
-My2DPoint projectPoint(My3DPoint eye, My3DPoint p) {
+My2DPoint2 projectPoint2(My3DPoint2 eye, My3DPoint2 p) {
   float[][] P = {{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, -1/eye.z, 0}};
   float[][] T = {{1, 0, 0, -eye.x}, {0, 1, 0, -eye.y}, {0, 0, 1, -eye.z}, {0, 0, 0, 1}};
   float[][] v = {{p.x}, {p.y}, {p.z}, {1}};
-  float[][] res = matrixMul(matrixMul(P, T), v);
-  return new My2DPoint(-eye.z * res[0][0]/res[2][0], -eye.z * res[1][0]/res[2][0]);
+  float[][] res = matrixMul2(matrixMul2(P, T), v);
+  return new My2DPoint2(-eye.z * res[0][0]/res[2][0], -eye.z * res[1][0]/res[2][0]);
 }
 
-class My2DBox {
-  My2DPoint[] s;
-  My2DBox(My2DPoint[] s) {
+class My2DBox2 {
+  My2DPoint2[] s;
+  My2DBox2(My2DPoint2[] s) {
     this.s = s;
   }
   void render(){
@@ -88,36 +88,36 @@ class My2DBox {
      line(s[7].x, s[7].y, s[6].x, s[6].y);
   }
 }
-class My3DBox {
-  My3DPoint[] p;
-  My3DBox(My3DPoint origin, float dimX, float dimY, float dimZ) {
+class My3DBox2 {
+  My3DPoint2[] p;
+  My3DBox2(My3DPoint2 origin, float dimX, float dimY, float dimZ) {
     float x = origin.x;
     float y = origin.y;
     float z = origin.z;
-    this.p = new My3DPoint[]{ new My3DPoint(x,y+dimY,z+dimZ),
-                              new My3DPoint(x,y,z+dimZ),
-                              new My3DPoint(x+dimX,y,z+dimZ),
-                              new My3DPoint(x+dimX,y+dimY,z+dimZ),
-                              new My3DPoint(x,y+dimY,z),
+    this.p = new My3DPoint2[]{ new My3DPoint2(x,y+dimY,z+dimZ),
+                              new My3DPoint2(x,y,z+dimZ),
+                              new My3DPoint2(x+dimX,y,z+dimZ),
+                              new My3DPoint2(x+dimX,y+dimY,z+dimZ),
+                              new My3DPoint2(x,y+dimY,z),
                               origin,
-                              new My3DPoint(x+dimX,y,z),
-                              new My3DPoint(x+dimX,y+dimY,z)
+                              new My3DPoint2(x+dimX,y,z),
+                              new My3DPoint2(x+dimX,y+dimY,z)
                             };
   }              
-  My3DBox(My3DPoint[] p) {
+  My3DBox2(My3DPoint2[] p) {
     this.p = p;
   }
 }
 
-My2DBox projectBox (My3DPoint eye, My3DBox box) {
-  My2DPoint[] pointVector = new My2DPoint[box.p.length];
+My2DBox2 projectBox2 (My3DPoint2 eye, My3DBox2 box) {
+  My2DPoint2[] pointVector = new My2DPoint2[box.p.length];
   for(int i = 0; i < box.p.length; ++i) {
-    pointVector[i] = projectPoint(eye, box.p[i]);
+    pointVector[i] = projectPoint2(eye, box.p[i]);
   }
-  return new My2DBox(pointVector);
+  return new My2DBox2(pointVector);
 }
 
-float[][] matrixMul(float[][] m1, float[][] m2) {
+float[][] matrixMul2(float[][] m1, float[][] m2) {
   float[][] m1m2 = new float[m1.length][m2[0].length];
    for (int i = 0; i < m1.length; ++i) {
      for (int j = 0; j < m2[0].length; ++j) {
@@ -131,52 +131,52 @@ float[][] matrixMul(float[][] m1, float[][] m2) {
     return m1m2;
 }
 
-float[] homogeneous3DPoint (My3DPoint p) { 
+float[] homogeneous3DPoint2 (My3DPoint2 p) { 
   float[] result = {p.x, p.y, p.z , 1};
   return result; 
 }
 
-float[][] rotateXMatrix(float angle) { 
+float[][] rotateXMatrix2(float angle) { 
   return(new float[][] {{1, 0 , 0 , 0},
                         {0, cos(angle), -sin(angle) , 0},
                         {0, sin(angle) , cos(angle) , 0},
                         {0, 0 , 0 , 1}});
 }
 
-float[][] rotateYMatrix(float angle) {
+float[][] rotateYMatrix2(float angle) {
    return(new float[][] {{cos(angle),0,sin(angle),0},
                          {0,1,0,0},
                          {-sin(angle),0,cos(angle),0},
                          {0,0,0,1}});
 }
 
-float[][] rotateZMatrix(float angle) {
+float[][] rotateZMatrix2(float angle) {
    return(new float[][] {{ cos(angle), -sin(angle), 0,0},
                          { sin(angle), cos(angle), 0, 0},
                          { 0, 0, 1, 0},
                          { 0, 0, 0, 1}});
 }
 
-float[][] scaleMatrix(float x, float y, float z) {
+float[][] scaleMatrix2(float x, float y, float z) {
    return(new float[][] {{x,0,0,0},
                          {0,y,0,0},
                          {0,0,z,0},
                          {0,0,0,1}});
 }
-float[][] translationMatrix(float x, float y, float z) {
+float[][] translationMatrix2(float x, float y, float z) {
    return (new float[][] {{1,0,0,x},
                          {0,1,0,y},
                          {0,0,1,z},
                          {0,0,0,1}});
 }
 
-float[] matrixProduct(float[][] a, float[] b){
+float[] matrixProduct2(float[][] a, float[] b){
   float[][] tmp = new float[b.length][1];
   for(int i = 0; i < b.length; i++){
     tmp[i][0] = b[i];
   }
   
-  float[][] res = matrixMul(a, tmp);
+  float[][] res = matrixMul2(a, tmp);
   float[] sol = new float[b.length];
   for(int i = 0; i < b.length; i++){
     sol[i] = res[i][0];
@@ -185,21 +185,21 @@ float[] matrixProduct(float[][] a, float[] b){
   return sol;
 }
 
-My3DBox transformBox(My3DBox box, float[][] transformMatrix) {
+My3DBox2 transformBox2(My3DBox2 box, float[][] transformMatrix) {
         //Complete the code! You need to use the euclidian3DPoint() function given below.
               
-        My3DPoint[] tmp = box.p;
+        My3DPoint2[] tmp = box.p;
         
-        My3DPoint[] res = new My3DPoint[tmp.length]; 
+        My3DPoint2[] res = new My3DPoint2[tmp.length]; 
         
         for(int i = 0; i < tmp.length; i++){
-          res[i] = euclidian3DPoint(matrixProduct(transformMatrix, homogeneous3DPoint(tmp[i])));
+          res[i] = euclidian3DPoint2(matrixProduct2(transformMatrix, homogeneous3DPoint2(tmp[i])));
         }
         
-        return new My3DBox(res);
+        return new My3DBox2(res);
 }
 
-My3DPoint euclidian3DPoint(float[] a){
-  My3DPoint result = new My3DPoint(a[0]/a[3], a[1]/a[3], a[2]/a[3]);
+My3DPoint2 euclidian3DPoint2(float[] a){
+  My3DPoint2 result = new My3DPoint2(a[0]/a[3], a[1]/a[3], a[2]/a[3]);
   return result;
 }
