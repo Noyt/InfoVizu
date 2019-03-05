@@ -1,30 +1,43 @@
 void settings() {
-//  size(400, 400, P2D);
-  size(1000, 1000, P2D);
+  size(500, 500, P3D);
 }
 
 void setup() {
+  noStroke();
 }
 
-void draw() {
-  background(255, 255, 255);
-  My3DPoint eye = new My3DPoint(0, 0, -5000);
-  My3DPoint origin = new My3DPoint(0, 0, 0);
+float depth = 2000;
 
-  My3DBox input3DBox = new My3DBox(origin, 100, 150, 300); //rotated around x
-  float[][] transform1 = rotateXMatrix(-PI/8);
-  input3DBox = transformBox(input3DBox, transform1);
-  projectBox(eye, input3DBox).render();
-  
-  //rotated and translated
-  float[][] transform2 = translationMatrix(200, 200, 0);
-  input3DBox = transformBox(input3DBox, transform2);
-  projectBox(eye, input3DBox).render();
-  
-  //rotated, translated, and scaled
-  float[][] transform3 = scaleMatrix(2, 2, 2);
-  input3DBox = transformBox(input3DBox, transform3);
-  projectBox(eye, input3DBox).render();
+void draw() {
+  camera(width/2, height/2, depth, 250, 250, 0, 0, 1, 0);
+  directionalLight(50, 100, 125, 0, -1, 0);
+  ambientLight(100, 102, 102);
+  background(200);
+  translate(width/2, height/2, 0);
+  float ry = map(mouseY, 0, height, 0, PI);
+  float rz = map(mouseX, 0, width, 0, PI);
+  rotateZ(rz);
+  rotateY(ry);
+  for(int x = -2; x <= 2; x++) {
+    for(int y = -2; y <= 2; y++){
+       for(int z = -2; z <= 2; z++) {
+         pushMatrix();
+         translate(100* x, 100* y, -100 * z);
+         box(50);
+         popMatrix();
+       }
+     }
+   }
+}
+
+void keyPressed() {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      depth -= 50;
+    } else if (keyCode == DOWN) {
+      depth += 50;
+    }
+  }
 }
 
 class My2DPoint {
