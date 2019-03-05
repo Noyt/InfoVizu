@@ -111,6 +111,7 @@ float[][] matrixMul(float[][] m1, float[][] m2) {
        m1m2[i][j] = 0;
          for(int k = 0; k < m1[0].length; ++k) {
             m1m2[i][j] += m1[i][k] * m2[k][j];
+            //Salut
          }
       }
     }
