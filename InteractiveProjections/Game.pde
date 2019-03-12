@@ -1,14 +1,16 @@
+float speed = 1;
+float rx = 0;
+float rz = 0;
+Mover3D sphere;
+
 void settings() {
   size(1000, 1000, P3D);
 }
 
 void setup() {
+  sphere = new Mover3D();
   //noStroke();
 }
-
-float speed = 1;
-float rx = 0;
-float rz = 0;
 
 void draw(){
   background(200);
@@ -16,6 +18,10 @@ void draw(){
   rotateX(rx);
   rotateZ(rz);
   box(500, 50, 500);
+  sphere.forces(rx, rz);
+  sphere.display();
+  sphere.update();
+
 }
 
 void mouseDragged() 
