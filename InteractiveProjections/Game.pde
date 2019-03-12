@@ -7,27 +7,32 @@ void setup() {
 }
 
 float speed = 1;
+float rx = 0;
+float rz = 0;
+
 void draw(){
   background(200);
-  camera(width/8, -height/8, -width/2, 250, 250, 0, 0, 1, 0);
-  translate(width/4, height/3, width/4);
-  float rx = map(mouseY, 0, height/speed, -PI/3, PI/3);
-  float rz = map(mouseX, 0, width, -PI/3, PI/3);
+  translate(width/2, height/2, width/8);
   rotateX(rx);
   rotateZ(rz);
-  
-  
-  
   box(500, 50, 500);
+}
+
+void mouseDragged() 
+{
+  rx += 0.01 * (mouseY - pmouseY) * speed;
+  rx = min(rx, PI/3);
+  rx = max(rx, -PI/3);
+  rz += 0.01 * (mouseX - pmouseX) * speed;
+  rz = min(rz, PI/3);
+  rz = max(rz, -PI/3);
+  
 }
 
 void mouseWheel(MouseEvent event){
   float e = event.getCount();
-  speed += 0.1*e;
+  speed += 0.05*e;
+  speed = min(speed, 1.5);
+  speed = max(speed, 0.2);
   
-  if(speed >= 1.5){
-    speed = 1.5;
-  } else if (speed <= 0.2) {
-    speed = 0.2;
-  }
 }
