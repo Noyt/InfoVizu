@@ -12,6 +12,7 @@ class Mover3D {
   PVector velocity;
   PVector boundariesMin;
   PVector boundariesMax;
+  float elasticity = 0.8;
   
   //Sphere image
   float radius = 30;
@@ -50,28 +51,28 @@ class Mover3D {
     if (location.x > boundariesMax.x) {
       location.x = boundariesMax.x;
       if (velocity.x > 0) {
-        velocity.x = -velocity.x;
+        velocity.x = -velocity.x * elasticity;
       }
     }
     
     if (location.z > boundariesMax.z) {
       location.z = boundariesMax.z;
       if (velocity.z > 0) {
-        velocity.z = -velocity.z;
+        velocity.z = -velocity.z * elasticity;
       }
     }
     
     if (location.x < boundariesMin.x) {
       location.x = boundariesMin.x;
       if (velocity.x < 0) {
-        velocity.x = -velocity.x;
+        velocity.x = -velocity.x * elasticity;
       }
     }
     
     if (location.z < boundariesMin.z) {
       location.z = boundariesMin.z;
       if (velocity.z < 0) {
-        velocity.z = -velocity.z;
+        velocity.z = -velocity.z * elasticity;
       }
     }
   }
