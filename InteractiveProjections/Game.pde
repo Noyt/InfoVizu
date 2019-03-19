@@ -6,8 +6,7 @@ float boxHeight = 50;
 Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
-ArrayList<PVector> cylinders;
-ArrayList<PShape> shapes;
+ArrayList<PVector> cylinderCenters;
 
 void settings() {
   size(1000, 1000, P3D);
@@ -15,6 +14,7 @@ void settings() {
 
 void setup() {
   sphere = new Mover3D(boxWidth);
+  setupCylinders();
   //noStroke();
 }
 
@@ -82,6 +82,6 @@ void keyReleased(){
 void mouseClicked(){
   if(mode == Mode.EDIT){
     PVector center = new PVector(mouseX, mouseY);
-    cylinders.add(center);
+    cylinderCenters.add(center);
   }
 }
