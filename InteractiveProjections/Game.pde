@@ -1,6 +1,8 @@
 float speed = 1;
 float rx = 0;
 float rz = 0;
+float boxWidth = 500;
+float boxHeight = 50;
 Mover3D sphere;
 
 void settings() {
@@ -8,16 +10,20 @@ void settings() {
 }
 
 void setup() {
-  sphere = new Mover3D();
+  sphere = new Mover3D(boxWidth);
   //noStroke();
 }
 
 void draw(){
   background(200);
   translate(width/2, height/2, width/8);
+  
+  //box
   rotateX(rx);
   rotateZ(rz);
-  box(500, 50, 500);
+  box(boxWidth, boxHeight, boxWidth);
+  
+  //sphere
   sphere.forces(rx, rz);
   sphere.display();
   sphere.update();
