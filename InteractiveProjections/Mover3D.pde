@@ -23,12 +23,14 @@ class Mover3D {
     boundariesMin = new PVector(location.x - boxWidth/2 , 0, location.z - boxWidth/2); 
     boundariesMax = new PVector(location.x + boxWidth/2 , 0, location.z + boxWidth/2);
   }
+  
   void update() {
     checkEdges();
     velocity.add(gravityForce);
     velocity.add(friction);
     location.add(velocity);
   }
+  
   void display() {
     translate(location.x, location.y, location.z);
     sphere(radius);
@@ -73,4 +75,5 @@ class Mover3D {
       }
     }
   }
+  
 }
