@@ -7,6 +7,7 @@ Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
 ArrayList<PVector> cylinderCenters;
+ArrayList<Cylinder> cylinders;
 
 void settings() {
   size(1000, 1000, P3D);
@@ -14,7 +15,6 @@ void settings() {
 
 void setup() {
   sphere = new Mover3D(boxWidth);
-  setupCylinders();
   //noStroke();
 }
 
@@ -37,6 +37,10 @@ void draw(){
   //sphere
   sphere.forces(rx, rz);
   sphere.display();
+  
+  //for(int i = 0; i < cylinders.size(); i++) {
+    //cylinders.get(i).display();
+  //}
   
   if(mode == Mode.NORMAL){
     sphere.update();
@@ -83,5 +87,6 @@ void mouseClicked(){
   if(mode == Mode.EDIT){
     PVector center = new PVector(mouseX, mouseY);
     cylinderCenters.add(center);
+    cylinders.add(new Cylinder(center));
   }
 }

@@ -41,7 +41,7 @@ class Cylinder {
     //top
     topBase = createShape();
       topBase.beginShape(TRIANGLE_FAN);
-      topBase.vertex(mouseX, mouseY, cylinderHeight);
+      topBase.vertex(location.x, location.y, cylinderHeight);
       for(int i = 0; i < x.length;i++){
         topBase.vertex(x[i], y[i] , cylinderHeight);
       }
@@ -50,16 +50,15 @@ class Cylinder {
     //base
     botBase = createShape();
       botBase.beginShape(TRIANGLE_FAN);
-      botBase.vertex(mouseX, mouseY, 0);
+      botBase.vertex(location.x, location.y, 0);
       for(int i = 0; i < x.length;i++){
         botBase.vertex(x[i], y[i] , 0);
       }
     botBase.endShape();
   }
   
-  void draw() {
-    background(255);
-    translate(mouseX, mouseY, 0);
+  void display() {
+    translate(location.x, location.y, 0);
     shape(openCylinder);
     shape(topBase);
     shape(botBase);
