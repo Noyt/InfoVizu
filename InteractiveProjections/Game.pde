@@ -33,14 +33,13 @@ void draw(){
   }
   
   box(boxWidth, boxHeight, boxWidth);
+  for(int i = 0; i < cylinders.size(); i++) {
+    cylinders.get(i).display();
+  }
   
   //sphere
   sphere.forces(rx, rz);
   sphere.display();
-  
-  for(int i = 0; i < cylinders.size(); i++) {
-    cylinders.get(i).display();
-  }
   
   if(mode == Mode.NORMAL){
     sphere.update();
