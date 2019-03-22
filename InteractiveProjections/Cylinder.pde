@@ -9,6 +9,7 @@ class Cylinder {
   
   Cylinder(PVector center) {
     location = center;
+    location = new PVector(0,0);
     openCylinder = new PShape();
     topBase = new PShape();
     botBase = new PShape();

@@ -6,8 +6,8 @@ float boxHeight = 50;
 Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
-ArrayList<PVector> cylinderCenters;
-ArrayList<Cylinder> cylinders;
+ArrayList<PVector> cylinderCenters = new ArrayList();
+ArrayList<Cylinder> cylinders = new ArrayList();
 
 void settings() {
   size(1000, 1000, P3D);
@@ -38,9 +38,9 @@ void draw(){
   sphere.forces(rx, rz);
   sphere.display();
   
-  //for(int i = 0; i < cylinders.size(); i++) {
-    //cylinders.get(i).display();
-  //}
+  for(int i = 0; i < cylinders.size(); i++) {
+    cylinders.get(i).display();
+  }
   
   if(mode == Mode.NORMAL){
     sphere.update();
