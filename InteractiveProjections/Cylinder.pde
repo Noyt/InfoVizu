@@ -9,7 +9,7 @@ class Cylinder {
   
   Cylinder(PVector center) {
     location = center;
-    location = new PVector(0,0);
+    //location = new PVector(0,0);
     openCylinder = new PShape();
     topBase = new PShape();
     botBase = new PShape();
@@ -42,7 +42,7 @@ class Cylinder {
     //top
     topBase = createShape();
       topBase.beginShape(TRIANGLE_FAN);
-      topBase.vertex(location.x, location.y, cylinderHeight);
+      topBase.vertex(0, 0, cylinderHeight);
       for(int i = 0; i < x.length;i++){
         topBase.vertex(x[i], y[i] , cylinderHeight);
       }
@@ -51,7 +51,7 @@ class Cylinder {
     //base
     botBase = createShape();
       botBase.beginShape(TRIANGLE_FAN);
-      botBase.vertex(location.x, location.y, 0);
+      botBase.vertex(0, 0, 0);
       for(int i = 0; i < x.length;i++){
         botBase.vertex(x[i], y[i] , 0);
       }
@@ -59,9 +59,12 @@ class Cylinder {
   }
   
   void display() {
-    translate(location.x, location.y, 0);
+    translate(location.x - width/2, -location.y + width/2, 0);
+    rotateX(-PI/2);
     shape(openCylinder);
     shape(topBase);
     shape(botBase);
+    rotateX(PI/2);
+    translate(-location.x + width/2, location.y - width/2, 0);
   }
 }

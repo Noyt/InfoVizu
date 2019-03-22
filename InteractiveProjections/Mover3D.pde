@@ -17,8 +17,8 @@ class Mover3D {
   //Sphere image
   float radius = 30;
   
-   Mover3D(float boxWidth) {
-    location = new PVector(0, -55, 0);
+   Mover3D(float boxWidth, float boxHeight) {
+    location = new PVector(0, -boxHeight/2 - radius, 0);
     velocity = new PVector(0, 0, 0);
     gravityForce = new PVector(0, 0, 0);
     boundariesMin = new PVector(location.x - boxWidth/2 , 0, location.z - boxWidth/2); 

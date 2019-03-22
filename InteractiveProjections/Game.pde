@@ -2,7 +2,7 @@ float speed = 1;
 float rx = 0;
 float rz = 0;
 float boxWidth = 500;
-float boxHeight = 50;
+float boxHeight = 30;
 Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
@@ -14,14 +14,13 @@ void settings() {
 }
 
 void setup() {
-  sphere = new Mover3D(boxWidth);
+  sphere = new Mover3D(boxWidth, boxHeight);
   //noStroke();
 }
 
 void draw(){
   background(200);
   translate(width/2, height/2, width/8);
-  
   
   //box
   if(mode == Mode.EDIT){
@@ -31,8 +30,9 @@ void draw(){
     rotateX(rx);
     rotateZ(rz);
   }
-  
   box(boxWidth, boxHeight, boxWidth);
+  
+  //Cylinders
   for(int i = 0; i < cylinders.size(); i++) {
     cylinders.get(i).display();
   }
@@ -86,6 +86,6 @@ void mouseClicked(){
   if(mode == Mode.EDIT){
     PVector center = new PVector(mouseX, mouseY);
     cylinderCenters.add(center);
-    cylinders.add(new Cylinder(center));
+    cylinders.add(new Cylinder(new PVector(mouseX,mouseY))) ;
   }
 }
