@@ -1,8 +1,11 @@
+//QUESTIONS : COMMMENT GERER LA PROFONDEUR
+
 float speed = 1;
 float rx = 0;
 float rz = 0;
 float boxWidth = 500;
 float boxHeight = 30;
+float cylinderRadius = 50;
 Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
@@ -33,16 +36,18 @@ void draw(){
   box(boxWidth, boxHeight, boxWidth);
   
   //Cylinders
+  translate(0, -boxHeight/2,0);
   for(int i = 0; i < cylinders.size(); i++) {
     cylinders.get(i).display();
   }
+  translate(0, boxHeight/2,0);
   
   //sphere
   sphere.forces(rx, rz);
   sphere.display();
   
   if(mode == Mode.NORMAL){
-    sphere.update();
+    sphere.update(cylinderCenters, cylinderRadius);
   }
 
 }
@@ -84,8 +89,12 @@ void keyReleased(){
 
 void mouseClicked(){
   if(mode == Mode.EDIT){
-    PVector center = new PVector(mouseX, mouseY);
-    cylinderCenters.add(center);
-    cylinders.add(new Cylinder(new PVector(mouseX,mouseY))) ;
+    
+    if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
+       mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
+        PVector center = new PVector(mouseX - width/2, mouseY - height/2);
+        cylinderCenters.add(center);
+        cylinders.add(new Cylinder(new PVector(center.x, center.y), cylinderRadius)) ;
+      }
   }
 }

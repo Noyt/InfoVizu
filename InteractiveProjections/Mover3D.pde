@@ -25,8 +25,9 @@ class Mover3D {
     boundariesMax = new PVector(location.x + boxWidth/2 , 0, location.z + boxWidth/2);
   }
   
-  void update() {
+  void update(ArrayList<PVector> cylinders, float cylinderRadius) {
     checkEdges();
+    checkCylinderCollision(cylinders, cylinderRadius);
     velocity.add(gravityForce);
     velocity.add(friction);
     location.add(velocity);
@@ -44,6 +45,17 @@ class Mover3D {
       friction.mult(-1);
       friction.normalize();
       friction.mult(frictionMagnitude);
+  }
+  
+  void checkCylinderCollision(ArrayList<PVector> cylinders, float cylinderRadius) {
+    for(int i = 0; i < cylinders.size(); ++i) {
+      PVector n = location.sub(cylinders.get(i));
+      if (n.mag() <= (radius + cylinderRadius)) {
+        //n = n.normalize();
+        //velocity = velocity.sub(n.mult(velocity.dot(n) * 2));
+        velocity.x = -velocity.x;
+      }
+    }
   }
   
   void checkEdges() {

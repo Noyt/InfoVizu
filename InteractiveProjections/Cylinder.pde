@@ -1,5 +1,5 @@
 class Cylinder {  
-  float cylinderBaseSize = 50;
+  float cylinderBaseRadius;
   float cylinderHeight = 50;
   int cylinderResolution = 40;
   PShape openCylinder;
@@ -7,8 +7,9 @@ class Cylinder {
   PShape botBase;
   PVector location;
   
-  Cylinder(PVector center) {
+  Cylinder(PVector center, float radius) {
     location = center;
+    cylinderBaseRadius = radius;
     //location = new PVector(0,0);
     openCylinder = new PShape();
     topBase = new PShape();
@@ -25,8 +26,8 @@ class Cylinder {
     //get the x and y position on a circle for all the sides
     for(int i = 0; i < x.length; i++) {
       angle = (TWO_PI / cylinderResolution) * i;
-      x[i] = sin(angle) * cylinderBaseSize;
-      y[i] = cos(angle) * cylinderBaseSize;
+      x[i] = sin(angle) * cylinderBaseRadius;
+      y[i] = cos(angle) * cylinderBaseRadius;
     }
     
     //border
@@ -59,12 +60,12 @@ class Cylinder {
   }
   
   void display() {
-    translate(location.x - width/2, -location.y + width/2, 0);
+    translate(location.x, -cylinderHeight, location.y);
     rotateX(-PI/2);
     shape(openCylinder);
     shape(topBase);
     shape(botBase);
     rotateX(PI/2);
-    translate(-location.x + width/2, location.y - width/2, 0);
+    translate(-location.x, cylinderHeight, -location.y);
   }
 }
