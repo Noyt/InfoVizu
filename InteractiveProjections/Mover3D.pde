@@ -18,7 +18,7 @@ class Mover3D {
   float radius = 30;
   
    Mover3D(float boxWidth, float boxHeight) {
-    location = new PVector(0, -boxHeight/2 - radius, 0);
+    location = new PVector(0, 0, 0);
     velocity = new PVector(0, 0, 0);
     gravityForce = new PVector(0, 0, 0);
     boundariesMin = new PVector(location.x - boxWidth/2 , 0, location.z - boxWidth/2); 
@@ -34,7 +34,7 @@ class Mover3D {
   }
   
   void display() {
-    translate(location.x, location.y, location.z);
+    translate(location.x, -boxHeight/2 - radius, location.z);
     sphere(radius);
   }
   
@@ -49,11 +49,12 @@ class Mover3D {
   
   void checkCylinderCollision(ArrayList<PVector> cylinders, float cylinderRadius) {
     for(int i = 0; i < cylinders.size(); ++i) {
-      PVector n = location.sub(cylinders.get(i));
+      PVector n = PVector.sub(location,cylinders.get(i));
+      PVector v = velocity.copy();
       if (n.mag() <= (radius + cylinderRadius)) {
-        //n = n.normalize();
-        //velocity = velocity.sub(n.mult(velocity.dot(n) * 2));
-        velocity.x = -velocity.x;
+        n = n.normalize();
+        velocity = PVector.sub(v, n.mult(PVector.dot(v, n) * 2));
+        
       }
     }
   }

@@ -10,7 +10,6 @@ class Cylinder {
   Cylinder(PVector center, float radius) {
     location = center;
     cylinderBaseRadius = radius;
-    //location = new PVector(0,0);
     openCylinder = new PShape();
     topBase = new PShape();
     botBase = new PShape();
@@ -60,12 +59,12 @@ class Cylinder {
   }
   
   void display() {
-    translate(location.x, -cylinderHeight, location.y);
+    translate(location.x, -cylinderHeight, location.z);
     rotateX(-PI/2);
     shape(openCylinder);
     shape(topBase);
     shape(botBase);
     rotateX(PI/2);
-    translate(-location.x, cylinderHeight, -location.y);
+    translate(-location.x, cylinderHeight, -location.z);
   }
 }

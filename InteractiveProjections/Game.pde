@@ -23,7 +23,7 @@ void setup() {
 
 void draw(){
   background(200);
-  translate(width/2, height/2, width/8);
+  translate(width/2, height/2, 0);
   
   //box
   if(mode == Mode.EDIT){
@@ -92,9 +92,10 @@ void mouseClicked(){
     
     if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
        mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
-        PVector center = new PVector(mouseX - width/2, mouseY - height/2);
+        
+         PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
         cylinderCenters.add(center);
-        cylinders.add(new Cylinder(new PVector(center.x, center.y), cylinderRadius)) ;
+        cylinders.add(new Cylinder(new PVector(center.x, 0, center.z), cylinderRadius)) ;
       }
   }
 }
