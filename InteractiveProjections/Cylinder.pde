@@ -1,15 +1,12 @@
-class Cylinder {  
-  float cylinderBaseRadius;
+class Cylinder extends Particle {  
   float cylinderHeight = 50;
   int cylinderResolution = 40;
   PShape openCylinder;
   PShape topBase;
   PShape botBase;
-  PVector location;
   
   Cylinder(PVector center, float radius) {
-    location = center;
-    cylinderBaseRadius = radius;
+    super(center, radius);
     openCylinder = new PShape();
     topBase = new PShape();
     botBase = new PShape();
@@ -25,8 +22,8 @@ class Cylinder {
     //get the x and y position on a circle for all the sides
     for(int i = 0; i < x.length; i++) {
       angle = (TWO_PI / cylinderResolution) * i;
-      x[i] = sin(angle) * cylinderBaseRadius;
-      y[i] = cos(angle) * cylinderBaseRadius;
+      x[i] = sin(angle) * radius;
+      y[i] = cos(angle) * radius;
     }
     
     //border
@@ -58,13 +55,13 @@ class Cylinder {
     botBase.endShape();
   }
   
-  void display() {
-    translate(location.x, -cylinderHeight, location.z);
+  @Override void display() {
+    translate(center.x, -cylinderHeight, center.z);
     rotateX(-PI/2);
     shape(openCylinder);
     shape(topBase);
     shape(botBase);
     rotateX(PI/2);
-    translate(-location.x, cylinderHeight, -location.z);
+    translate(-center.x, cylinderHeight, -center.x);
   }
 }
