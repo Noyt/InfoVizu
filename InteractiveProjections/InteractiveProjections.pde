@@ -9,7 +9,7 @@ void setup2() {
 float depth = 2000;
 
 void draw2() {
-  camera(width/2, height/2, depth, 250, 250, 0, 0, 1, 0);
+  //camera(width/2, height/2, depth, 250, 250, 0, 0, 1, 0);
   directionalLight(50, 100, 125, 0, -1, 0);
   ambientLight(100, 102, 102);
   background(200);

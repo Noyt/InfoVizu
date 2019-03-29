@@ -1,0 +1,50 @@
+float speed = 1;
+float rx = 0;
+float rz = 0;
+float boxWidth = 500;
+float boxHeight = 50;
+Mover3D sphere;
+
+void settings() {
+  size(1000, 1000, P3D);
+}
+
+void setup() {
+  sphere = new Mover3D(boxWidth);
+  //noStroke();
+}
+
+void draw(){
+  background(200);
+  translate(width/2, height/2, width/8);
+  
+  //box
+  rotateX(rx);
+  rotateZ(rz);
+  box(boxWidth, boxHeight, boxWidth);
+  
+  //sphere
+  sphere.forces(rx, rz);
+  sphere.display();
+  sphere.update();
+
+}
+
+void mouseDragged() 
+{
+  rx += 0.01 * (mouseY - pmouseY) * speed;
+  rx = min(rx, PI/3);
+  rx = max(rx, -PI/3);
+  rz += 0.01 * (mouseX - pmouseX) * speed;
+  rz = min(rz, PI/3);
+  rz = max(rz, -PI/3);
+  
+}
+
+void mouseWheel(MouseEvent event) {
+  float e = event.getCount();
+  speed += 0.05*e;
+  speed = min(speed, 1.5);
+  speed = max(speed, 0.2);
+  
+}

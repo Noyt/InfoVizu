@@ -54,7 +54,7 @@ void draw(){
 
 void mouseDragged() 
 {
-  rx -= 0.01 * (mouseY - pmouseY) * speed;
+  rx += 0.01 * (mouseY - pmouseY) * speed;
   rx = min(rx, PI/3);
   rx = max(rx, -PI/3);
   rz += 0.01 * (mouseX - pmouseX) * speed;
@@ -92,10 +92,9 @@ void mouseClicked(){
     
     if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
        mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
-        
-         PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
+        PVector center = new PVector(mouseX - width/2, mouseY - height/2);
         cylinderCenters.add(center);
-        cylinders.add(new Cylinder(new PVector(center.x, 0, center.z), cylinderRadius)) ;
+        cylinders.add(new Cylinder(new PVector(center.x, center.y), cylinderRadius)) ;
       }
   }
 }
