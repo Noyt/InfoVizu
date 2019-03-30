@@ -8,19 +8,13 @@ class ParticleSystem {
   float zMin;
   float zMax;
   PShape villain;
-  PImage img;
  
   
-  ParticleSystem(PVector origin, float boxWidth) {
+  ParticleSystem(PVector origin, float boxWidth, PShape villain) {
     this.origin = origin.copy();
     particles = new ArrayList<Particle>();
     particles.add(new Cylinder(origin, particleRadius));
-    villain = loadShape("Robotnik/robotnik.obj");
-    img = loadImage("Robotnik/robotnik.png");
-    villain.setStroke(false);
-    villain.setTexture(img);
-    
-    
+    this.villain = villain;
     xMin = -boxWidth/2;
     xMax = boxWidth/2;
     zMin = -boxWidth/2;
@@ -87,7 +81,9 @@ class ParticleSystem {
   }
   
   void display() {
+    translate(origin.x, origin.y - 50, origin.z);
     shape(villain);
+    translate(-origin.x, -origin.y + 50, -origin.z);
     for (int i = particles.size() - 1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.run();

@@ -5,6 +5,8 @@ float rx = 0;
 float rz = 0;
 float boxWidth = 500;
 float boxHeight = 20;
+PShape villain;
+PImage img;
 Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
@@ -15,6 +17,12 @@ void settings() {
 
 void setup() {
   sphere = new Mover3D(boxWidth);
+  villain = loadShape("Robotnik/robotnik.obj");
+  img = loadImage("Robotnik/robotnik.png");
+  villain.setStroke(false);
+  villain.setTexture(img);
+  villain.scale(50.0);
+  villain.rotateX(PI);
   //noStroke();
 }
 
@@ -85,7 +93,7 @@ void mouseClicked(){
   if(mode == Mode.EDIT){
     if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
        mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
-       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth);
+       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth, villain);
        //PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
      }
   }
