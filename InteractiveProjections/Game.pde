@@ -10,7 +10,7 @@ Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
 ArrayList<PVector> cylinderCenters;
-//ArrayList<Cylinder> cylinders;
+ArrayList<Cylinder> cylinders;
 ParticleSystem particleSystem;
 ;void settings() {
   size(1000, 1000, P3D);
@@ -44,18 +44,19 @@ void draw(){
   //}
   //translate(0, boxHeight/2,0);
   
+  if (particleSystem != null) {
+    /*if (frameCount % ((int)frameRate/5) == 0) {
+      particleSystem.addParticle();
+    } */
+     particleSystem.run();
+  }
+  
   //sphere
   sphere.forces(rx, rz);
   sphere.display();
   
   if(mode == Mode.NORMAL){
     sphere.update(cylinderCenters, cylinderRadius);
-  }
-  if (particleSystem != null) {
-    if (frameCount % ((int)frameRate/5) == 0) {
-      particleSystem.addParticle();
-    }
-     particleSystem.run();
   }
 }
 
