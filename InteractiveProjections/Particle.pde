@@ -9,7 +9,7 @@ abstract class Particle {
     this.radius = radius;
   }
   void run() {
-    update();
+    //update();
     display();
   }
   // Method to update the particle's remaining lifetime

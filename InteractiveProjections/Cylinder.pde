@@ -62,6 +62,6 @@ class Cylinder extends Particle {
     shape(topBase);
     shape(botBase);
     rotateX(PI/2);
-    translate(-center.x, cylinderHeight, -center.x);
+    translate(-center.x, cylinderHeight, -center.z);
   }
 }

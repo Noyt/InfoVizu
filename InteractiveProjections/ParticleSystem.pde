@@ -3,12 +3,20 @@ class ParticleSystem {
   ArrayList<Particle> particles;
   PVector origin;
   float particleRadius = 10;
+  float xMin;
+  float xMax;
+  float yMin;
+  float yMax;
  
   
-  ParticleSystem(PVector origin) {
+  ParticleSystem(PVector origin, float boxWidth) {
     this.origin = origin.copy();
     particles = new ArrayList<Particle>();
     particles.add(new Cylinder(origin, particleRadius));
+    xMin = -boxWidth/2;
+    xMax = boxWidth/2;
+    yMin = xMin;
+    yMax = -yMax;
   }
   
   void addParticle() {
@@ -18,16 +26,27 @@ class ParticleSystem {
        // Pick a cylinder and its center.
       int index = int(random(particles.size()));
       center = particles.get(index).center.copy();
+      //center = new PVector(0, 0, 0);
       
       // Try to add an adjacent cylinder.
       float angle = random(TWO_PI);
       center.x += sin(angle) * 2 * particleRadius;
-      center.y += cos(angle) * 2 * particleRadius;
+      center.z += cos(angle) * 2 * particleRadius;
       if(checkPosition(center)) {
         particles.add(new Cylinder(center, particleRadius));
         break;
       }
+      
     }
+    
+    /*center = origin;
+      float angle = random(TWO_PI);
+      center.x += sin(angle) * 2 * particleRadius;
+      center.z += cos(angle) * 2 * particleRadius;
+      if(checkPosition(center)) {
+        particles.add(new Cylinder(center, particleRadius));  
+      }  
+      */
   } 
   
   // Check if a position is available, i.e.
@@ -35,15 +54,15 @@ class ParticleSystem {
   // (for each particle, call checkOverlap())
   // - is inside the board boundaries
   boolean checkPosition(PVector center) {
-    if (center.x + particleRadius  > width || center.x - particleRadius  < 0  || 
-        center.y + particleRadius  > height || center.y - particleRadius  < 0 ) {
+    if (center.x > xMax || center.x < xMin  || 
+        center.z > yMax || center.z < yMin ) {
       return false;
     }
-    for (int i = particles.size() - 1; i >= 0; i--) {
+    /*for (int i = particles.size() - 1; i >= 0; i--) {
       if (checkOverlap(center, particles.get(i).center)) {
         return false; 
       }
-    }
+    }*/
     return true;
   }
   
@@ -60,12 +79,15 @@ class ParticleSystem {
   // Iteratively update and display every particle,
   // and remove them from the list if their lifetime is over.
   void run() {
+    if (frameCount % ((int)frameRate/5) == 0) {
+      addParticle();
+    }
+  }
+  
+  void display() {
     for (int i = particles.size() - 1; i >= 0; i--) {
       Particle p = particles.get(i);
       p.run();
-      if (p.isDead()) {
-        particles.remove(i);
-      }
     }
   }
   

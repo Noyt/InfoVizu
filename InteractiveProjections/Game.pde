@@ -44,18 +44,19 @@ void draw(){
   //}
   //translate(0, boxHeight/2,0);
   
-  if (particleSystem != null) {
-    /*if (frameCount % ((int)frameRate/5) == 0) {
-      particleSystem.addParticle();
-    } */
-     particleSystem.run();
-  }
+  
   
   //sphere
   sphere.forces(rx, rz);
   sphere.display();
   
+  if(particleSystem != null){
+    particleSystem.display();
+  }
   if(mode == Mode.NORMAL){
+    if (particleSystem != null) {
+     particleSystem.run();
+    }
     sphere.update(cylinderCenters, cylinderRadius);
   }
 }
@@ -98,7 +99,7 @@ void mouseClicked(){
   if(mode == Mode.EDIT){
     if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
        mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
-       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2));
+       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth);
        //PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
        //cylinderCenters.add(center);
        //cylinders.add(new Cylinder(new PVector(center.x, 0, center.z), cylinderRadius)) ;
