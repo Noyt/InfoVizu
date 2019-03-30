@@ -10,7 +10,7 @@ Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
 ArrayList<PVector> cylinderCenters;
-ArrayList<Cylinder> cylinders;
+//ArrayList<Cylinder> cylinders;
 ParticleSystem particleSystem;
 ;void settings() {
   size(1000, 1000, P3D);
@@ -18,7 +18,7 @@ ParticleSystem particleSystem;
 
 void setup() {
   cylinderCenters = new ArrayList();
-  cylinders = new ArrayList();
+  //cylinders = new ArrayList();
   sphere = new Mover3D(boxWidth);
   //noStroke();
 }
@@ -34,15 +34,15 @@ void draw(){
   } else if (mode == Mode.NORMAL){
     rotateX(rx);
     rotateZ(rz);
-  }
+ }
   box(boxWidth, boxHeight, boxWidth);
   
   //Cylinders
-  translate(0, -boxHeight/2,0);
-  for(int i = 0; i < cylinders.size(); i++) {
-    cylinders.get(i).display();
-  }
-  translate(0, boxHeight/2,0);
+  //translate(0, -boxHeight/2,0);
+  //for(int i = 0; i < cylinders.size(); i++) {
+  //  cylinders.get(i).display();
+  //}
+  //translate(0, boxHeight/2,0);
   
   //sphere
   sphere.forces(rx, rz);
@@ -51,15 +51,12 @@ void draw(){
   if(mode == Mode.NORMAL){
     sphere.update(cylinderCenters, cylinderRadius);
   }
-   if (frameCount % ((int)frameRate/10) == 0) {
-     if (particleSystem != null) {
-        particleSystem.addParticle();
-     }
-  }
   if (particleSystem != null) {
-    particleSystem.run();
+    if (frameCount % ((int)frameRate/5) == 0) {
+      particleSystem.addParticle();
+    }
+     particleSystem.run();
   }
-
 }
 
 void mouseDragged() 
@@ -77,8 +74,7 @@ void mouseWheel(MouseEvent event){
   float e = event.getCount();
   speed += 0.05*e;
   speed = min(speed, 1.5);
-  speed = max(speed, 0.2);
-  
+  speed = max(speed, 0.2); 
 }
 
 void keyPressed(){
@@ -105,7 +101,6 @@ void mouseClicked(){
        //PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
        //cylinderCenters.add(center);
        //cylinders.add(new Cylinder(new PVector(center.x, 0, center.z), cylinderRadius)) ;
-      }
-      
+     }
   }
 }
