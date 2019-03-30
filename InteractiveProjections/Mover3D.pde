@@ -36,6 +36,7 @@ class Mover3D {
   void display() {
     translate(location.x, -boxHeight/2 - radius, location.z);
     sphere(radius);
+    translate(-location.x, boxHeight/2 + radius, -location.z);
   }
   
   void forces(float rx, float rz) {
