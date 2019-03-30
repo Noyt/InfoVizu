@@ -4,7 +4,6 @@ class ParticleSystem {
   PVector origin;
   float particleRadius = 10;
  
-  
   ParticleSystem(PVector origin) {
     this.origin = origin.copy();
     particles = new ArrayList<Particle>();

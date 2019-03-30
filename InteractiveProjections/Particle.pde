@@ -3,7 +3,6 @@ abstract class Particle {
   PVector center;
   float radius;
 
-  
   Particle(PVector center, float radius) {
     this.center = center.copy();
     this.radius = radius;
