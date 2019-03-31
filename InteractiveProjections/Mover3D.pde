@@ -15,7 +15,7 @@ class Mover3D {
   float elasticity = 0.8;
   
   //Sphere image
-  float radius = 30;
+  float radius = 20;
   
    Mover3D(float boxWidth) {
     location = new PVector(0, 0, 0);
@@ -25,9 +25,9 @@ class Mover3D {
     boundariesMax = new PVector(location.x + boxWidth/2 , 0, location.z + boxWidth/2);
   }
   
-  void update(ArrayList<PVector> cylinders, float cylinderRadius) {
+  void update() {
     checkEdges();
-    checkCylinderCollision(cylinders, cylinderRadius);
+    //checkCylinderCollision(cylinders, cylinderRadius);
     velocity.add(gravityForce);
     velocity.add(friction);
     location.add(velocity);
@@ -48,16 +48,17 @@ class Mover3D {
       friction.mult(frictionMagnitude);
   }
   
-  void checkCylinderCollision(ArrayList<PVector> cylinders, float cylinderRadius) {
+  int checkCylinderCollision(ArrayList<Particle> cylinders, float cylinderRadius) {
     for(int i = 0; i < cylinders.size(); ++i) {
-      PVector n = PVector.sub(location,cylinders.get(i));
+      PVector n = PVector.sub(location,cylinders.get(i).center);
       PVector v = velocity.copy();
       if (n.mag() <= (radius + cylinderRadius)) {
         n = n.normalize();
         velocity = PVector.sub(v, n.mult(PVector.dot(v, n) * 2));
-        
+        return i;
       }
     }
+    return -1;
   }
   
   void checkEdges() {

@@ -4,22 +4,25 @@ float speed = 1;
 float rx = 0;
 float rz = 0;
 float boxWidth = 500;
-float boxHeight = 30;
-float cylinderRadius = 50;
+float boxHeight = 20;
+PShape villain;
+PImage img;
 Mover3D sphere;
 enum Mode {NORMAL, EDIT};
 Mode mode = Mode.NORMAL;
-ArrayList<PVector> cylinderCenters;
-ArrayList<Cylinder> cylinders;
 ParticleSystem particleSystem;
-;void settings() {
+void settings() {
   size(1000, 1000, P3D);
 }
 
 void setup() {
-  cylinderCenters = new ArrayList();
-  //cylinders = new ArrayList();
   sphere = new Mover3D(boxWidth);
+  villain = loadShape("Robotnik/robotnik.obj");
+  img = loadImage("Robotnik/robotnik.png");
+  villain.setStroke(false);
+  villain.setTexture(img);
+  villain.scale(50.0);
+  villain.rotateX(PI);
   //noStroke();
 }
 
@@ -37,15 +40,6 @@ void draw(){
  }
   box(boxWidth, boxHeight, boxWidth);
   
-  //Cylinders
-  //translate(0, -boxHeight/2,0);
-  //for(int i = 0; i < cylinders.size(); i++) {
-  //  cylinders.get(i).display();
-  //}
-  //translate(0, boxHeight/2,0);
-  
-  
-  
   //sphere
   sphere.forces(rx, rz);
   sphere.display();
@@ -55,9 +49,9 @@ void draw(){
   }
   if(mode == Mode.NORMAL){
     if (particleSystem != null) {
-     particleSystem.run();
+     particleSystem.run(sphere);
     }
-    sphere.update(cylinderCenters, cylinderRadius);
+    sphere.update();
   }
 }
 
@@ -99,10 +93,8 @@ void mouseClicked(){
   if(mode == Mode.EDIT){
     if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
        mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
-       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth);
+       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth, villain);
        //PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
-       //cylinderCenters.add(center);
-       //cylinders.add(new Cylinder(new PVector(center.x, 0, center.z), cylinderRadius)) ;
      }
   }
 }
