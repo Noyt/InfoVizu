@@ -38,6 +38,7 @@ void draw(){
     rotateX(rx);
     rotateZ(rz);
  }
+ 
   box(boxWidth, boxHeight, boxWidth);
   
   //sphere
@@ -93,7 +94,7 @@ void mouseClicked(){
   if(mode == Mode.EDIT){
     if(mouseX >= width/2 - boxWidth/2 && mouseX <= width/2 + boxWidth/2 &&
        mouseY >= height/2 - boxWidth/2 &&  mouseY <= height/2 + boxWidth/2) {
-       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth, villain);
+       particleSystem = new ParticleSystem(new PVector(mouseX - width/2, 0, mouseY - height/2), boxWidth, villain, sphere.location);
        //PVector center = new PVector(mouseX - width/2, 0, mouseY - height/2);
      }
   }

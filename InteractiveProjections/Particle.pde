@@ -16,11 +16,4 @@ abstract class Particle {
   
    // Method to display
   abstract void display();
-
-  
-  // Is the particle still useful?
-  // Check if the lifetime is over.
-  boolean isDead() {
-    return false;
-  }
 }
