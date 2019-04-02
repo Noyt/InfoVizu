@@ -12,17 +12,21 @@ class ParticleSystem {
   float villain_default_angle = PI;
   
   ParticleSystem(PVector origin, float boxWidth, PShape villain, PVector sphere_location) {
-    this.origin = origin.copy();
+    xMin = -(boxWidth/2 - particleRadius);
+    xMax = (boxWidth/2 - particleRadius);
+    zMin = -(boxWidth/2 - particleRadius);
+    zMax = (boxWidth/2 - particleRadius);
+    float x = max(origin.x, xMin);
+    x = min(origin.x, xMax);
+    float z = max(origin.z, zMin);
+    z = min(origin.z, zMax);
+    this.origin = new PVector(x, 0, z);
     particles = new ArrayList<Particle>();
-    particles.add(new Cylinder(origin, particleRadius));
+    particles.add(new Cylinder(this.origin, particleRadius));
     
     this.villain = villain;
-    villain_to_sphere = PVector.sub(sphere_location,origin);
-    
-    xMin = -boxWidth/2;
-    xMax = boxWidth/2;
-    zMin = -boxWidth/2;
-    zMax = boxWidth/2;
+    villain_to_sphere = PVector.sub(sphere_location, this.origin);
+
   }
   
   void addParticle() {
