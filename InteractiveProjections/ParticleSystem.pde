@@ -10,17 +10,18 @@ class ParticleSystem {
   PShape villain;
   PVector villain_to_sphere;
   float villain_default_angle = PI;
+  float integer_adjust = 1;
   
   ParticleSystem(PVector origin, float boxWidth, PShape villain, PVector sphere_location) {
     xMin = -(boxWidth/2 - particleRadius);
     xMax = (boxWidth/2 - particleRadius);
     zMin = -(boxWidth/2 - particleRadius);
     zMax = (boxWidth/2 - particleRadius);
-    float x = max(origin.x, xMin);
-    x = min(origin.x, xMax);
-    float z = max(origin.z, zMin);
-    z = min(origin.z, zMax);
-    this.origin = new PVector(x, 0, z);
+    origin.x = max(origin.x, xMin + integer_adjust);
+    origin.x = min(origin.x, xMax - integer_adjust);
+    origin.z = max(origin.z, zMin + integer_adjust);
+    origin.z = min(origin.z, zMax - integer_adjust);
+    this.origin = origin.copy();
     particles = new ArrayList<Particle>();
     particles.add(new Cylinder(this.origin, particleRadius));
     
@@ -119,7 +120,7 @@ class ParticleSystem {
       rotateY(ry);
       shape(villain);
       rotateY(-ry);
-      translate(-origin.x, -origin.y + 50, -origin.z);
+      translate(-origin.x, -(origin.y - 50), -origin.z);
       
       // Draw each particle
       for (int i = particles.size() - 1; i >= 0; i--) {
